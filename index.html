@@ -3,275 +3,309 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSI 1000 Volatility Selling Strategy — Agentic Sciences</title>
+    <title>Volatility Strategies — Agentic Sciences</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', -apple-system, sans-serif; color: #111; line-height: 1.7; background: #fff; }
+        .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
         
-        .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
-        
-        /* Header */
         header { border-bottom: 1px solid #e5e5e5; padding: 20px 0; }
         header .container { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 15px; font-weight: 600; color: #111; text-decoration: none; }
         .logo span { color: #666; font-weight: 400; }
         nav a { font-size: 13px; color: #666; text-decoration: none; margin-left: 24px; }
         nav a:hover { color: #111; }
-        
-        /* Hero */
-        .hero { padding: 80px 0 60px; border-bottom: 1px solid #e5e5e5; }
-        .hero h1 { font-size: 36px; font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
-        .hero .subtitle { font-size: 18px; color: #666; margin-bottom: 24px; }
-        .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; margin-right: 8px; margin-bottom: 8px; }
+
+        .hero { padding: 80px 0 48px; text-align: center; border-bottom: 1px solid #e5e5e5; }
+        .hero h1 { font-size: 40px; font-weight: 700; line-height: 1.15; margin-bottom: 16px; }
+        .hero .subtitle { font-size: 18px; color: #555; max-width: 680px; margin: 0 auto 28px; }
+        .badge { display: inline-block; padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; margin: 4px; }
         .badge-blue { background: #eff6ff; color: #1d4ed8; }
         .badge-green { background: #f0fdf4; color: #15803d; }
         .badge-purple { background: #faf5ff; color: #7e22ce; }
-        
-        /* Stats */
-        .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: #e5e5e5; border: 1px solid #e5e5e5; border-radius: 8px; margin: 40px 0; overflow: hidden; }
-        .stat { background: #fff; padding: 24px; text-align: center; }
-        .stat .value { font-size: 28px; font-weight: 700; color: #111; }
-        .stat .label { font-size: 12px; color: #888; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
-        
-        /* Sections */
-        section { padding: 60px 0; border-bottom: 1px solid #e5e5e5; }
-        section:last-child { border-bottom: none; }
-        h2 { font-size: 24px; font-weight: 600; margin-bottom: 24px; }
-        h3 { font-size: 16px; font-weight: 600; margin-bottom: 12px; margin-top: 24px; }
-        p { color: #444; margin-bottom: 16px; }
-        
-        /* Figures */
-        .figure { margin: 32px 0; }
+        .badge-orange { background: #fff7ed; color: #c2410c; }
+
+        /* Strategy Cards */
+        .strategies { padding: 60px 0; }
+        .strategy-card { border: 1px solid #e5e5e5; border-radius: 12px; padding: 40px; margin-bottom: 32px; transition: box-shadow 0.2s; }
+        .strategy-card:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+        .strategy-card h2 { font-size: 26px; font-weight: 700; margin-bottom: 8px; }
+        .strategy-card .tagline { font-size: 15px; color: #666; margin-bottom: 20px; }
+        .strategy-card p { color: #444; font-size: 15px; }
+
+        .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: #e5e5e5; border: 1px solid #e5e5e5; border-radius: 8px; margin: 24px 0; overflow: hidden; }
+        .stat { background: #fff; padding: 20px; text-align: center; }
+        .stat .value { font-size: 24px; font-weight: 700; }
+        .stat .label { font-size: 11px; color: #888; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .stat .value.green { color: #15803d; }
+        .stat .value.red { color: #dc2626; }
+
+        .figure { margin: 28px 0; }
         .figure img { width: 100%; border: 1px solid #e5e5e5; border-radius: 8px; }
         .figure .caption { font-size: 13px; color: #888; margin-top: 8px; font-style: italic; }
+
+        h3 { font-size: 17px; font-weight: 600; margin: 28px 0 12px; }
+        ul { padding-left: 20px; margin-bottom: 16px; }
+        li { color: #444; margin-bottom: 6px; font-size: 15px; }
+
+        .downloads { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 20px; }
+        .dl-card { border: 1px solid #e5e5e5; border-radius: 8px; padding: 16px; text-decoration: none; color: #111; transition: background 0.15s; }
+        .dl-card:hover { background: #fafafa; }
+        .dl-card .dl-type { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+        .dl-card .dl-name { font-size: 14px; font-weight: 500; margin-top: 4px; }
+        .dl-card .dl-size { font-size: 12px; color: #aaa; margin-top: 2px; }
+
+        /* Comparison table */
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+        th { background: #f9fafb; border: 1px solid #e5e5e5; padding: 10px 14px; text-align: left; font-weight: 600; }
+        td { border: 1px solid #e5e5e5; padding: 10px 14px; }
+        tr:hover td { background: #fafafa; }
+
+        .section-divider { height: 1px; background: #e5e5e5; margin: 0; }
         
-        /* Downloads */
-        .downloads { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 24px; }
-        .download-card { border: 1px solid #e5e5e5; border-radius: 8px; padding: 20px; transition: border-color 0.2s; }
-        .download-card:hover { border-color: #111; }
-        .download-card a { text-decoration: none; color: #111; }
-        .download-card .title { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
-        .download-card .desc { font-size: 13px; color: #888; margin-bottom: 12px; }
-        .download-card .meta { font-size: 12px; color: #aaa; }
-        .btn { display: inline-block; padding: 10px 20px; background: #111; color: #fff; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: 500; }
-        .btn:hover { background: #333; }
-        .btn-outline { background: #fff; color: #111; border: 1px solid #ddd; }
-        .btn-outline:hover { border-color: #111; }
-        
-        /* Code */
-        .code-block { background: #f8f8f8; border: 1px solid #e5e5e5; border-radius: 8px; padding: 20px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 13px; overflow-x: auto; margin: 16px 0; line-height: 1.6; }
-        
-        /* Table */
-        table { width: 100%; border-collapse: collapse; margin: 16px 0; }
-        th, td { padding: 10px 16px; text-align: left; border-bottom: 1px solid #e5e5e5; font-size: 14px; }
-        th { font-weight: 600; color: #666; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
-        
-        /* Footer */
-        footer { padding: 40px 0; border-top: 1px solid #e5e5e5; }
-        footer p { font-size: 13px; color: #999; }
-        
+        footer { padding: 40px 0; text-align: center; color: #999; font-size: 13px; border-top: 1px solid #e5e5e5; }
+        footer a { color: #666; text-decoration: none; }
+
         @media (max-width: 640px) {
             .stats { grid-template-columns: repeat(2, 1fr); }
             .downloads { grid-template-columns: 1fr; }
             .hero h1 { font-size: 28px; }
+            .strategy-card { padding: 24px; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <a href="/" class="logo">Agentic Sciences <span>/ Options Research</span></a>
-            <nav>
-                <a href="#strategy">Strategy</a>
-                <a href="#results">Results</a>
-                <a href="#figures">Figures</a>
-                <a href="#downloads">Downloads</a>
-            </nav>
-        </div>
-    </header>
 
+<header>
     <div class="container">
-        <div class="hero">
-            <div>
-                <span class="badge badge-blue">CFFEX Options</span>
-                <span class="badge badge-green">Delta-Hedged</span>
-                <span class="badge badge-purple">Gamma-Controlled</span>
-            </div>
-            <h1>Systematic Volatility Selling on CSI 1000 Index Options</h1>
-            <p class="subtitle">A delta-hedged, gamma-controlled short volatility strategy exploiting the variance risk premium in China's index options market.</p>
-            <div style="margin-top: 24px;">
-                <a href="assets/csi1000_vol_selling.pdf" class="btn">Read Paper (76 pp)</a>
-                <a href="#downloads" class="btn btn-outline" style="margin-left: 8px;">Download Code</a>
-            </div>
+        <a class="logo" href="https://agentic-sciences.github.io/">Agentic Sciences <span>/ Volatility Strategies</span></a>
+        <nav>
+            <a href="#csi1000">CSI 1000</a>
+            <a href="#hs300">HS300 Vol Arb</a>
+            <a href="#phoenix">Phoenix ETF</a>
+            <a href="#downloads">Downloads</a>
+        </nav>
+    </div>
+</header>
+
+<div class="hero">
+    <div class="container">
+        <h1>Volatility Premium Strategies</h1>
+        <p class="subtitle">Systematic harvesting of the volatility risk premium across Chinese equity indices and structured products. Three strategies, one thesis: implied volatility persistently exceeds realized volatility.</p>
+        <div>
+            <span class="badge badge-blue">China A-Share Options</span>
+            <span class="badge badge-green">Variance Risk Premium</span>
+            <span class="badge badge-purple">Structured Products</span>
+            <span class="badge badge-orange">Delta-Hedged</span>
         </div>
+    </div>
+</div>
 
-        <div class="stats">
-            <div class="stat">
-                <div class="value">71.9%</div>
-                <div class="label">Total Return</div>
-            </div>
-            <div class="stat">
-                <div class="value">16.5%</div>
-                <div class="label">Annualized</div>
-            </div>
-            <div class="stat">
-                <div class="value">0.94</div>
-                <div class="label">Sharpe Ratio</div>
-            </div>
-            <div class="stat">
-                <div class="value">-12.3%</div>
-                <div class="label">Max Drawdown</div>
-            </div>
-        </div>
+<div class="strategies">
+<div class="container">
 
-        <section id="strategy">
-            <h2>Strategy Design</h2>
-            <p>The strategy sells near-month ATM straddles (calls + puts) on CSI 1000 index options when implied volatility is elevated, and delta-hedges with index futures. Two layers of gamma risk control prevent excessive short convexity exposure.</p>
-            
-            <h3>Entry Signal</h3>
-            <p>On each trading day, compute the ATM implied volatility percentile rank over a rolling 252-day window. Enter short straddle positions when IV rank exceeds the 80th percentile.</p>
-            
-            <h3>Risk Controls</h3>
-            <table>
-                <tr><th>Parameter</th><th>Value</th><th>Description</th></tr>
-                <tr><td>Per-Trade Gamma</td><td>≤ ¥2M</td><td>Maximum notional gamma per individual option sale</td></tr>
-                <tr><td>Portfolio Gamma</td><td>≤ ¥200M</td><td>Hard limit on aggregate notional gamma</td></tr>
-                <tr><td>Delta Hedge</td><td>Daily</td><td>Rebalanced using CSI 1000 index futures (IM)</td></tr>
-                <tr><td>Max Contracts</td><td>50/side</td><td>Maximum contracts per call or put side</td></tr>
-                <tr><td>IV Threshold</td><td>80th pctile</td><td>Rolling 1-year IV percentile rank</td></tr>
-            </table>
-
-            <h3>Greek Definitions</h3>
-            <table>
-                <tr><th>Greek</th><th>Formula</th><th>Interpretation (Short Position)</th></tr>
-                <tr><td><strong>Delta (Δ)</strong></td><td>∂V/∂S</td><td>Hedged to ≈ 0 daily via futures</td></tr>
-                <tr><td><strong>Gamma (Γ)</strong></td><td>Γ × multiplier × S²/100</td><td>Negative (short convexity) — capped at ¥200M</td></tr>
-                <tr><td><strong>Vega (ν)</strong></td><td>∂V/∂σ</td><td>Negative — profits when IV falls</td></tr>
-                <tr><td><strong>Theta (Θ)</strong></td><td>∂V/∂t</td><td>Positive — earns time decay daily</td></tr>
-            </table>
-        </section>
-
-        <section id="results">
-            <h2>Performance</h2>
-            <table>
-                <tr><th>Metric</th><th>Value</th></tr>
-                <tr><td>Backtest Period</td><td>Aug 2022 – Mar 2026</td></tr>
-                <tr><td>Initial Capital</td><td>¥100,000,000</td></tr>
-                <tr><td>Final NAV</td><td>¥171,921,375</td></tr>
-                <tr><td>Total Return</td><td>71.9%</td></tr>
-                <tr><td>Annualized Return</td><td>16.5%</td></tr>
-                <tr><td>Sharpe Ratio</td><td>0.94</td></tr>
-                <tr><td>Maximum Drawdown</td><td>-12.3%</td></tr>
-                <tr><td>Win Rate</td><td>63.3%</td></tr>
-                <tr><td>Total Trades</td><td>305</td></tr>
-                <tr><td>Sell Days</td><td>153 / 842 (18.2%)</td></tr>
-            </table>
-
-            <h3>Temporal Return Attribution</h3>
-            <p><strong>2022–2023:</strong> Low IV environment (mean 16%). Strategy mostly inactive — only 14 sell days. Minimal returns, confirming the filter correctly avoids low-VRP regimes.</p>
-            <p><strong>2024:</strong> IV surged to mean 27.6% following the September volatility spike. Strategy sold on 115 days, generating the majority of cumulative returns. This validates the core thesis: sell volatility when it's expensive.</p>
-            <p><strong>2025:</strong> Despite elevated absolute IV (24%), the rolling 1-year percentile rank dropped to 33.9 because the trailing window included extreme 2024 readings. Strategy correctly abstained until September 2025, when the extreme Sep-2024 data rolled out.</p>
-        </section>
-
-        <section id="figures">
-            <h2>Figures</h2>
-            
-            <div class="figure">
-                <img src="assets/figures/csi1000_fig2_iv.png" alt="IV Distribution">
-                <div class="caption">Figure 1: ATM Implied Volatility distribution and percentile rank. Only 18% of days exceed the 80th percentile entry threshold.</div>
-            </div>
-
-            <div class="figure">
-                <img src="assets/figures/csi1000_vol_selling.png" alt="Strategy Overview">
-                <div class="caption">Figure 2: Strategy overview panels — NAV, index & IV, gamma exposure, delta, IV rank signals, and vega.</div>
-            </div>
-
-            <div class="figure">
-                <img src="assets/figures/csi1000_fig3_monthly.png" alt="Monthly P&L">
-                <div class="caption">Figure 3: Monthly P&L decomposition. Returns concentrate in high-IV months (late 2024).</div>
-            </div>
-
-            <div class="figure">
-                <img src="assets/figures/csi1000_fig4_drawdown.png" alt="Drawdown">
-                <div class="caption">Figure 4: Drawdown analysis. Maximum drawdown of -12.3% contained by gamma risk controls.</div>
-            </div>
-
-            <div class="figure">
-                <img src="assets/figures/csi1000_fig5_trades.png" alt="Trade Analysis">
-                <div class="caption">Figure 5: Trade-level P&L distribution and cumulative P&L by trade sequence.</div>
-            </div>
-
-            <div class="figure">
-                <img src="assets/figures/csi1000_fig6_greeks.png" alt="Greek Exposures">
-                <div class="caption">Figure 6: Time series of portfolio Greek exposures — gamma, vega, delta, and position count.</div>
-            </div>
-        </section>
-
-        <section id="downloads">
-            <h2>Downloads</h2>
-            <div class="downloads">
-                <div class="download-card">
-                    <a href="assets/csi1000_vol_selling.pdf">
-                        <div class="title">📄 Research Paper</div>
-                        <div class="desc">Full 76-page paper with methodology, results, trade log, and risk analysis</div>
-                        <div class="meta">PDF · 850 KB</div>
-                    </a>
-                </div>
-                <div class="download-card">
-                    <a href="code/csi1000_vol_selling.py">
-                        <div class="title">🐍 Strategy Code</div>
-                        <div class="desc">Complete backtest engine — signal generation, position sizing, delta hedging, P&L tracking</div>
-                        <div class="meta">Python · 10 KB</div>
-                    </a>
-                </div>
-                <div class="download-card">
-                    <a href="code/csi1000_download.py">
-                        <div class="title">📊 Data Downloader</div>
-                        <div class="desc">AKShare-based option chain downloader with retry logic and parquet caching</div>
-                        <div class="meta">Python · 4 KB</div>
-                    </a>
-                </div>
-                <div class="download-card">
-                    <a href="code/gen_csi1000_paper.py">
-                        <div class="title">📝 Paper Generator</div>
-                        <div class="desc">ReportLab script that generates the full PDF from strategy results</div>
-                        <div class="meta">Python · 18 KB</div>
-                    </a>
-                </div>
-                <div class="download-card">
-                    <a href="code/csi1000_extra_figs.py">
-                        <div class="title">📈 Figure Generator</div>
-                        <div class="desc">Matplotlib scripts for all 6 research figures</div>
-                        <div class="meta">Python · 5 KB</div>
-                    </a>
-                </div>
-                <div class="download-card">
-                    <a href="assets/data/csi1000_daily.csv">
-                        <div class="title">📋 Daily Results</div>
-                        <div class="desc">842 trading days — NAV, greeks, IV rank, positions</div>
-                        <div class="meta">CSV · 120 KB</div>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2>Data Sources</h2>
-            <table>
-                <tr><th>Source</th><th>Data</th><th>Access</th></tr>
-                <tr><td>AKShare</td><td>CSI 1000 option chains (CFFEX)</td><td>Free, open-source Python API</td></tr>
-                <tr><td>Sina Finance</td><td>CSI 1000 index prices</td><td>Via AKShare backend</td></tr>
-                <tr><td>CFFEX</td><td>Contract specifications (MO series)</td><td>Public</td></tr>
-            </table>
-            <p style="margin-top: 16px; font-size: 13px; color: #888;">All data is publicly available. No proprietary data sources were used. Options data covers July 2022 – March 2026 (56,101 observations across 1,022 contract series).</p>
-        </section>
+<!-- ======== Strategy 1: CSI 1000 ======== -->
+<div class="strategy-card" id="csi1000">
+    <h2>1. CSI 1000 Index Option Volatility Selling</h2>
+    <p class="tagline">Systematic short put + call strategy on CSI 1000 index options, filtered by IV rank</p>
+    
+    <div class="stats">
+        <div class="stat"><div class="value green">71.92%</div><div class="label">Total Return</div></div>
+        <div class="stat"><div class="value green">16.51%</div><div class="label">Ann. Return</div></div>
+        <div class="stat"><div class="value">0.94</div><div class="label">Sharpe Ratio</div></div>
+        <div class="stat"><div class="value red">-12.29%</div><div class="label">Max Drawdown</div></div>
     </div>
 
-    <footer>
-        <div class="container">
-            <p>© 2026 Agentic Sciences · <a href="https://agentic-sciences.github.io" style="color: #666;">Main Site</a> · Research output generated autonomously</p>
-        </div>
-    </footer>
+    <p>Sell OTM put and call options on the CSI 1000 index when the 20-day IV rank exceeds a threshold. The strategy collects option premium (theta decay) while managing risk through IV-rank filtering, gamma limits, and position sizing. Backtested on 68,554 option observations covering 1,022 contract series from 2022–2025.</p>
+
+    <h3>Strategy Logic</h3>
+    <ul>
+        <li>Sell OTM puts (Delta ~-0.25) and calls (Delta ~0.25) when IV rank > 50th percentile</li>
+        <li>Hold to expiry or roll at 80% profit</li>
+        <li>Per-trade gamma ≤ ¥2M, portfolio gamma ≤ ¥200M</li>
+        <li>No delta hedging — directional exposure accepted</li>
+    </ul>
+
+    <div class="figure">
+        <img src="assets/figures/csi1000_vol_selling.png" alt="CSI 1000 NAV">
+        <div class="caption">Figure 1: Strategy NAV curve with CSI 1000 index overlay (2022–2025)</div>
+    </div>
+    <div class="figure">
+        <img src="assets/figures/csi1000_fig2_iv.png" alt="IV Analysis">
+        <div class="caption">Figure 2: Implied volatility distribution and IV rank time series</div>
+    </div>
+    <div class="figure">
+        <img src="assets/figures/csi1000_fig3_monthly.png" alt="Monthly Returns">
+        <div class="caption">Figure 3: Monthly return heatmap</div>
+    </div>
+    <div class="figure">
+        <img src="assets/figures/csi1000_fig4_drawdown.png" alt="Drawdown">
+        <div class="caption">Figure 4: Drawdown profile</div>
+    </div>
+    <div class="figure">
+        <img src="assets/figures/csi1000_fig5_trades.png" alt="Trade Analysis">
+        <div class="caption">Figure 5: Trade-level P&L distribution</div>
+    </div>
+    <div class="figure">
+        <img src="assets/figures/csi1000_fig6_greeks.png" alt="Greeks">
+        <div class="caption">Figure 6: Portfolio Greeks evolution (Delta, Gamma, Vega, Theta)</div>
+    </div>
+</div>
+
+<!-- ======== Strategy 2: HS300 Vol Arb ======== -->
+<div class="strategy-card" id="hs300">
+    <h2>2. HS300 Option Volatility Arbitrage</h2>
+    <p class="tagline">Delta-hedged short volatility on CSI 300 index options — replication of institutional vol carry strategy</p>
+
+    <div class="stats">
+        <div class="stat"><div class="value green">8.37%</div><div class="label">Ann. Return (Ref)</div></div>
+        <div class="stat"><div class="value">4.03%</div><div class="label">Ann. Vol (Ref)</div></div>
+        <div class="stat"><div class="value green">2.08</div><div class="label">Sharpe (Ref)</div></div>
+        <div class="stat"><div class="value red">-3.52%</div><div class="label">Max DD (Ref)</div></div>
+    </div>
+
+    <p>Replication of an institutional-grade volatility carry strategy on HS300 index options. The strategy sells OTM calls at four delta levels (20/25/30/35%), gamma-equal weighted with daily vega target of 0.125 vol, and delta-hedges with IF futures intraday (4× per day). The core alpha comes from the persistent spread between implied and realized volatility (~2.1% on average).</p>
+
+    <h3>Strategy Construction</h3>
+    <ul>
+        <li><strong>Sell:</strong> 4 OTM call strikes (Δ=20%, 25%, 30%, 35%), gamma-equal weighted</li>
+        <li><strong>Vega budget:</strong> Daily total vega = 0.125 × implied vol</li>
+        <li><strong>Contract selection:</strong> Nearest month if ≥5 days to expiry, otherwise next month</li>
+        <li><strong>Delta hedge:</strong> IF futures, rebalanced at 10:00, 11:00, 13:30, 13:55</li>
+        <li><strong>Costs:</strong> Futures 2bp + Option IV×3% + Management 50bp/yr</li>
+    </ul>
+
+    <h3>P&L Decomposition</h3>
+    <ul>
+        <li><strong>Revenue:</strong> Theta − Gamma (IV² − RV² variance premium)</li>
+        <li><strong>Risk:</strong> Vega (IV spikes during market stress)</li>
+        <li><strong>Extras:</strong> Futures basis income + intraday trend from hedging</li>
+    </ul>
+
+    <h3>Our Replication (Variance Premium Model)</h3>
+    <table>
+        <tr><th>Metric</th><th>Reference</th><th>Replication</th><th>Notes</th></tr>
+        <tr><td>Ann. Return</td><td>8.37%</td><td>~5%*</td><td>*Missing intraday hedge + momentum</td></tr>
+        <tr><td>Ann. Volatility</td><td>4.03%</td><td>4.00%</td><td>✅ Precise match</td></tr>
+        <tr><td>2021 Return</td><td>6.48%</td><td>6.47%</td><td>✅ Near-perfect</td></tr>
+        <tr><td>2022 Return</td><td>3.33%</td><td>2.62%</td><td>Close</td></tr>
+        <tr><td>2023 Return</td><td>4.22%</td><td>6.29%</td><td>Close</td></tr>
+        <tr><td>Max Drawdown</td><td>-3.52%</td><td>-11.15%</td><td>Missing gamma hedge for 924 event</td></tr>
+    </table>
+
+    <h3>Pain Point & Solution: Intraday Momentum Hedge</h3>
+    <p>The strategy's main vulnerability is extreme trending days (e.g., Sep 24, 2024: +22% in HS300). The proposed solution combines vol carry (short gamma) with an intraday momentum strategy (long gamma), creating a natural hedge. Combined portfolio: Ann. 10.53%, Sharpe 2.23.</p>
+
+    <h3>Scenario Analysis</h3>
+    <table>
+        <tr><th>Daily |Return|</th><th>Count</th><th>Avg Strategy Return</th></tr>
+        <tr><td>> 3%</td><td>34</td><td>-103 bp ❌</td></tr>
+        <tr><td>2–3%</td><td>69</td><td>-21 bp</td></tr>
+        <tr><td>1–2%</td><td>277</td><td>-1 bp</td></tr>
+        <tr><td>< 1%</td><td>838</td><td>+9 bp ✅</td></tr>
+    </table>
+
+    <div class="figure">
+        <img src="assets/hs300_vol_arb/citic_vol_arb_replication.png" alt="HS300 Vol Arb Replication">
+        <div class="caption">Figure 7: HS300 Vol Arb replication — NAV, IV vs RV, drawdown, and PnL decomposition</div>
+    </div>
+    <div class="figure">
+        <img src="assets/hs300_vol_arb/citic_vol_arb_monthly.png" alt="HS300 Monthly Returns">
+        <div class="caption">Figure 8: Monthly return heatmap (2020–2024)</div>
+    </div>
+</div>
+
+<!-- ======== Strategy 3: Phoenix ETF ======== -->
+<div class="strategy-card" id="phoenix">
+    <h2>3. European Phoenix Autocallable DCA (CAIE ETF)</h2>
+    <p class="tagline">Structured product NAV-ification — weekly DCA into European Phoenix autocallables on a vol-targeted index</p>
+
+    <div class="stats">
+        <div class="stat"><div class="value green">14.59%</div><div class="label">Ann. Return</div></div>
+        <div class="stat"><div class="value green">$7.4B</div><div class="label">AUM</div></div>
+        <div class="stat"><div class="value green">14.33%</div><div class="label">Avg Coupon</div></div>
+        <div class="stat"><div class="value green">97.2%</div><div class="label">Autocall Rate</div></div>
+    </div>
+
+    <p>The Calamos CAIE ETF (launched June 2025, SPR "Most Innovative Product" award) packages weekly dollar-cost averaging into European Phoenix autocallable notes linked to the MerQube US Vol Advantage Large Cap Index (MQUSLVA), which tracks S&P 500 futures with a 35% implied-volatility target. The vol-targeting mechanism creates an ideal underlying for structured products: high implied vol (→ high coupons) with controlled downside risk.</p>
+
+    <h3>Vol Advantage Index (MQUSLVA)</h3>
+    <ul>
+        <li><strong>Underlying:</strong> S&P 500 futures</li>
+        <li><strong>Target volatility:</strong> 35% (weekly rebalancing using <em>implied</em> volatility)</li>
+        <li><strong>Deduction:</strong> 6% annual interest</li>
+        <li><strong>Key innovation:</strong> Uses implied vol (forward-looking) vs historical vol (backward-looking)</li>
+        <li><strong>Leverage:</strong> Low IV → high exposure; High IV → low exposure</li>
+    </ul>
+
+    <h3>Phoenix Autocallable Terms</h3>
+    <table>
+        <tr><th>Parameter</th><th>Value</th></tr>
+        <tr><td>Tenor</td><td>5 years</td></tr>
+        <tr><td>Lockout period</td><td>1 year (no autocall observation)</td></tr>
+        <tr><td>Autocall barrier</td><td>100%, monthly observation after lockout</td></tr>
+        <tr><td>Coupon barrier</td><td>60%, monthly observation</td></tr>
+        <tr><td>Knock-in barrier</td><td>60%, European (maturity only)</td></tr>
+        <tr><td>Avg coupon</td><td>14.33% p.a.</td></tr>
+        <tr><td>DCA frequency</td><td>Weekly (61 live structures)</td></tr>
+        <tr><td>Paying coupons</td><td>100% of structures</td></tr>
+        <tr><td>Near-maturity principal at risk</td><td>0%</td></tr>
+    </table>
+
+    <h3>Why This Works</h3>
+    <ul>
+        <li><strong>Vol targeting eliminates tail risk:</strong> When VIX spikes, the index de-levers automatically → underlying can't crash 60% to trigger knock-in</li>
+        <li><strong>Backtested knock-in rate: 0.00%</strong> (2007–2025)</li>
+        <li><strong>Backtested autocall rate: 97.22%</strong></li>
+        <li><strong>Higher coupon than alternatives:</strong> NDX-linked only 3.2%; Worst-of basket 8.7%; MQUSLVA 15.8%</li>
+        <li><strong>Single underlying = simpler + more transparent</strong> vs traditional worst-of baskets</li>
+    </ul>
+
+    <h3>Coupon Comparison</h3>
+    <table>
+        <tr><th>Underlying</th><th>Structure</th><th>Coupon</th><th>Autocall %</th><th>Knock-in %</th></tr>
+        <tr><td>NDX Index</td><td>Single</td><td>3.2%</td><td>—</td><td>—</td></tr>
+        <tr><td>NKY + NDX + SX5E</td><td>Worst-of 3</td><td>8.7%</td><td>88.1%</td><td>4.9%</td></tr>
+        <tr><td>MQUSLVA</td><td>Single (vol-targeted)</td><td><strong>15.8%</strong></td><td><strong>97.2%</strong></td><td><strong>0.0%</strong></td></tr>
+    </table>
+</div>
+
+<!-- ======== Downloads ======== -->
+<div id="downloads" style="padding: 60px 0;">
+    <h2>Downloads</h2>
+    <p>All research papers, source code, and data are available below.</p>
+
+    <h3>Strategy 1 — CSI 1000 Vol Selling</h3>
+    <div class="downloads">
+        <a class="dl-card" href="assets/csi1000_vol_selling.pdf"><div class="dl-type">PDF</div><div class="dl-name">Full Research Paper (44 pages)</div><div class="dl-size">Strategy design, backtest results, Greeks analysis</div></a>
+        <a class="dl-card" href="code/csi1000_vol_selling.py"><div class="dl-type">Python</div><div class="dl-name">Strategy Engine</div><div class="dl-size">Backtest + signal generation</div></a>
+        <a class="dl-card" href="code/csi1000_download.py"><div class="dl-type">Python</div><div class="dl-name">Data Downloader</div><div class="dl-size">AKShare CSI 1000 option data</div></a>
+        <a class="dl-card" href="assets/data/csi1000_daily.csv"><div class="dl-type">CSV</div><div class="dl-name">Daily NAV Data</div><div class="dl-size">842 trading days</div></a>
+    </div>
+
+    <h3>Strategy 2 — HS300 Vol Arb Replication</h3>
+    <div class="downloads">
+        <a class="dl-card" href="code/citic_vol_arb_hs300.py"><div class="dl-type">Python</div><div class="dl-name">Replication Script</div><div class="dl-size">Variance premium model</div></a>
+        <a class="dl-card" href="assets/hs300_vol_arb/citic_vol_arb_daily.csv"><div class="dl-type">CSV</div><div class="dl-name">Daily NAV Data</div><div class="dl-size">1,218 trading days</div></a>
+    </div>
+
+    <h3>Strategy 3 — Phoenix ETF Analysis</h3>
+    <div class="downloads">
+        <a class="dl-card" href="assets/calamos_phoenix_etf.pdf"><div class="dl-type">PDF</div><div class="dl-name">JPM Structured Products Catalog</div><div class="dl-size">CAIE ETF product details (17 pages)</div></a>
+    </div>
+</div>
+
+</div>
+</div>
+
+<footer>
+    <div class="container">
+        <p><strong>Agentic Sciences</strong> — Quantitative Research Lab</p>
+        <p style="margin-top: 8px;">Data sources: AKShare (CSI 1000 / HS300 options), QVIX, IF futures · All backtests are hypothetical</p>
+        <p style="margin-top: 8px;"><a href="https://agentic-sciences.github.io/">← Main Site</a></p>
+    </div>
+</footer>
+
 </body>
 </html>

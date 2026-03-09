@@ -1,39 +1,15 @@
-# CSI 1000 Volatility Selling Strategy
+# Volatility Premium Strategies — Agentic Sciences
 
-Systematic delta-hedged, gamma-controlled short volatility strategy on CFFEX CSI 1000 index options.
+Three systematic approaches to harvesting the volatility risk premium:
 
-**[📄 Read the Paper](https://agentic-sciences.github.io/csi1000-vol-selling/assets/csi1000_vol_selling.pdf)** | **[🌐 Live Site](https://agentic-sciences.github.io/csi1000-vol-selling/)**
+1. **CSI 1000 Index Option Volatility Selling** — IV rank filtered short straddle
+2. **HS300 Option Volatility Arbitrage** — Delta-hedged vol carry (institutional replication)  
+3. **European Phoenix Autocallable DCA** — Structured product NAV-ification (CAIE ETF analysis)
 
-## Key Results
+## Live Site
 
-| Metric | Value |
-|---|---|
-| Period | Aug 2022 – Mar 2026 |
-| Total Return | 71.9% |
-| Annualized | 16.5% |
-| Sharpe Ratio | 0.94 |
-| Max Drawdown | -12.3% |
-| Win Rate | 63.3% |
+https://agentic-sciences.github.io/csi1000-vol-selling/
 
-## Repository Structure
+## Core Thesis
 
-```
-├── index.html              # Research website
-├── assets/
-│   ├── csi1000_vol_selling.pdf   # Full paper (76 pages)
-│   ├── figures/            # All research figures
-│   └── data/               # Daily strategy results (CSV)
-└── code/
-    ├── csi1000_vol_selling.py    # Strategy backtest engine
-    ├── csi1000_download.py       # Option data downloader (AKShare)
-    ├── gen_csi1000_paper.py      # PDF paper generator
-    └── csi1000_extra_figs.py     # Figure generator
-```
-
-## Data Sources
-
-All data is publicly available via [AKShare](https://github.com/akfamily/akshare) (free, open-source).
-
----
-
-*Agentic Sciences — Research. Content. Capital.*
+Implied volatility persistently exceeds realized volatility across equity indices. These strategies systematically harvest this variance risk premium through different mechanisms: naked option selling, delta-hedged vol carry, and structured product coupons.
