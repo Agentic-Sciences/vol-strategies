@@ -462,12 +462,14 @@ function cwTogglePanel() {
     const API_KEY = 'AIzaSyAtGVCnCvgATp0f2tw3hHhQdyOOE_yCD1M';
     const MODEL = 'gemini-2.5-flash-native-audio-latest';
     const WS_URL = `wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent?key=${API_KEY}`;
-    const NOISE_GATE = 0.015;
+    const NOISE_GATE = 0.018;
+    const SILENCE_TIMEOUT_MS = 1500;
 
     let ws, inputCtx, mediaStream, playbackCtx;
     let audioQueue = [], isPlaying = false, isMuted = false;
     let videoEnabled = false, videoStream = null, videoInterval = null;
     let isPTT = false, isPTTActive = false;
+    let hasSpeech = false, silenceTimer = null;
 
     const orb = document.getElementById('cw-orb');
     const orbC = document.getElementById('cw-orb-container');
@@ -577,7 +579,21 @@ function cwTogglePanel() {
             if(!ws||ws.readyState!==1||isMuted)return;
             const inp=e.inputBuffer.getChannelData(0);
             let s=0; for(let i=0;i<inp.length;i++)s+=inp[i]*inp[i];
-            if(Math.sqrt(s/inp.length)<NOISE_GATE)return;
+            const rms=Math.sqrt(s/inp.length);
+            if(rms<NOISE_GATE){
+                if(hasSpeech&&!silenceTimer){
+                    silenceTimer=setTimeout(()=>{
+                        if(ws&&ws.readyState===1&&hasSpeech&&!isMuted){
+                            ws.send(JSON.stringify({clientContent:{turnComplete:true}}));
+                            hasSpeech=false;
+                        }
+                        silenceTimer=null;
+                    },SILENCE_TIMEOUT_MS);
+                }
+                return;
+            }
+            hasSpeech=true;
+            if(silenceTimer){clearTimeout(silenceTimer);silenceTimer=null;}
             const nb=new Float32Array(buf.length+inp.length);
             nb.set(buf);nb.set(inp,buf.length);buf=nb;
             if(buf.length>=3200){sendChunk(buf);buf=new Float32Array(0);}
