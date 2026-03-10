@@ -435,6 +435,14 @@
             </select></label>
         </div>
 
+        <!-- Text Input -->
+        <div style="margin-top:10px; display:flex; gap:4px;">
+            <input id="cw-text-input" type="text" placeholder="Type a question..." 
+                style="flex:1; padding:8px 12px; border:1px solid #ddd; border-radius:20px; font-size:13px; outline:none;"
+                onkeydown="if(event.key==='Enter')cwSendText()">
+            <button onclick="cwSendText()" style="padding:8px 14px; border:none; border-radius:20px; background:linear-gradient(135deg,#627EEA,#9B59B6); color:white; font-size:13px; cursor:pointer;">→</button>
+        </div>
+
         <!-- Transcript -->
         <div id="cw-transcript" style="margin-top:10px; background:#f8f8fa; border:1px solid #eee; border-radius:10px; padding:10px; max-height:120px; overflow-y:auto; text-align:left; font-size:12px; line-height:1.4; display:none;"></div>
 
@@ -640,6 +648,46 @@ function cwTogglePanel() {
         log('Session ended','system');
         if(ws){ws.close(1000);ws=null;}
         cleanup();
+    };
+
+    window.cwSendText = async function() {
+        const input = document.getElementById('cw-text-input');
+        const text = input.value.trim();
+        if (!text) return;
+        input.value = '';
+        log(text, 'user');
+
+        if (ws && ws.readyState === 1) {
+            // Send via live session
+            ws.send(JSON.stringify({
+                clientContent: {
+                    turns: [{ role: "user", parts: [{ text: text }] }],
+                    turnComplete: true
+                }
+            }));
+        } else {
+            // Text-only mode via REST API
+            setStat('Thinking...', '#627EEA');
+            try {
+                const payload = {
+                    contents: [{ parts: [{ text: text }] }],
+                    systemInstruction: { parts: [{ text: "You are an AI research assistant specializing in volatility strategies, options pricing, and quantitative finance. You have deep knowledge of CSI 1000 vol selling, HS300 vol arbitrage, and structured products like Phoenix autocallable notes. Answer clearly and concisely." }] }
+                };
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
+                const resp = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const result = await resp.json();
+                const answer = result.candidates?.[0]?.content?.parts?.[0]?.text || 'No response';
+                log(answer, 'ai');
+                setStat('Ready', '#aaa');
+            } catch (e) {
+                log('Error: ' + e.message, 'system');
+                setStat('Error', '#ff4466');
+            }
+        }
     };
 
     function cleanup() {
